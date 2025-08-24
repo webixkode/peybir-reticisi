@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeynirDükkanı</title>
+    <link rel="stylesheet" href="anasayfa.css">
+</head>
+<body>
+    <header>
+<div class="menu">
+    <!-- Sol Kısım - Logo ve Telefon -->
+    <div class="left">
+        <div class="logo">
+            <a href="#">PeynirDükkanı</a>
+        </div>
+        <div class="phone">
+            <a href="tel:+123456789">444 4 788</a>
+        </div>
+    </div>
+
+    <!-- Ortada Teslimat Adresi -->
+    <div class="center">
+        <p class="delivery-address">Teslimat Adresi Seçin:</p>
+        <button class="open-map">Haritadan Seç</button>
+        <div class="address-form" style="display:none;">
+            <input type="text" class="manual-address" placeholder="Adresinizi manuel girin">
+            <button class="submit-address">Adres Kaydet</button>
+        </div>
+    </div>
+
+    <!-- Sağ Kısım - Sipariş Puanı, Giriş/Kayıt Ol ve Sepet -->
+    <div class="right">
+        <a href="#" class="points">satış Puan</a>
+        <a href="#" class="login">Üye Girişi</a>
+        <a href="#" class="cart">🛒 Sepet (0 TL)</a>
+    </div>
+</div>
+
+<!-- Google Maps Modal -->
+<div id="mapModal" class="map-modal">
+    <div class="map-modal-content">
+        <span class="close-map">&times;</span>
+        <h2>Haritadan Teslimat Adresi Seçin</h2>
+        <div id="map" style="height: 400px;"></div>
+        <button id="saveMapAddress" class="submit-button">Adresi Kaydet</button>
+    </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+<script src="anasayfa.js"></script>
+</body>
+</html>
