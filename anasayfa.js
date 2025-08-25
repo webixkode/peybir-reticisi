@@ -40,3 +40,28 @@ document.querySelector('.submit-address').addEventListener('click', function() {
     console.log("Manuel Adres Kaydedildi: " + address);
     // Adresi kaydetme işlemi yapılabilir
 });
+
+// Slider dots functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const dots = document.querySelectorAll('.dot');
+    
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentSlide = index;
+            showSlide(currentSlide);
+            updateDots();
+        });
+    });
+    
+    function updateDots() {
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[currentSlide].classList.add('active');
+    }
+    
+    // Mevcut showSlide fonksiyonunu güncelle
+    function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[index].classList.add('active');
+        updateDots();
+    }
+});
