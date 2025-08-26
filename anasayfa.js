@@ -251,3 +251,95 @@ const productData = {
 function getProductDetails(productId) {
     return productData[productId] || null;
 }
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Scroll animasyonları
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Üretim sürecindeki itemları gözlemle
+    const processItems = document.querySelectorAll('.process-item');
+    processItems.forEach(item => {
+        observer.observe(item);
+    });
+
+    // Sayaç animasyonu
+    const counters = document.querySelectorAll('.counter');
+    const statsSection = document.querySelector('.stats-section');
+    let hasAnimated = false;
+
+    const statsObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAnimated) {
+                hasAnimated = true;
+                animateCounters();
+            }
+        });
+    }, { threshold: 0.5 });
+
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
+
+    function animateCounters() {
+        counters.forEach(counter => {
+            const target = parseInt(counter.parentElement.getAttribute('data-count'));
+            const increment = target / 100;
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    counter.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    counter.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 20);
+        });
+    }
+
+    // Değer öğeleri hover efektleri
+    const valueItems = document.querySelectorAll('.value-item');
+    valueItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            const icon = this.querySelector('i');
+            icon.style.transform = 'rotate(360deg)';
+            icon.style.transition = 'transform 0.5s ease';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            const icon = this.querySelector('i');
+            icon.style.transform = 'rotate(0deg)';
+        });
+    });
+
+    // Smooth scroll
+    const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
+    smoothScrollLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    console.log('🧀 Peynir üreticisi sayfası yüklendi!');
+});
