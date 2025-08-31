@@ -273,6 +273,48 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(item);
     });
 
+    // Neden Biz? kartlarını gözlemle
+    const whyCards = document.querySelectorAll('.why-card');
+    whyCards.forEach(card => {
+        observer.observe(card);
+    });
+
+    // Müşteri Yorumları kartlarını gözlemle
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    testimonialCards.forEach(card => {
+        observer.observe(card);
+    });
+
+    // CTA kutusunu gözlemle
+    const ctaBox = document.querySelector('.cta-box');
+    if (ctaBox) {
+        observer.observe(ctaBox);
+    }
+
+    // Footer grid animasyonu
+    const footer = document.querySelector('.site-footer .footer-grid');
+    if (footer) {
+        // Başlangıç stili (CSS'de değil JS ile veriyoruz ki yalnızca destekliyorsa uygulasın)
+        footer.style.opacity = '0';
+        footer.style.transform = 'translateY(30px)';
+        footer.style.transition = 'all 0.4s ease';
+        const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    footer.style.opacity = '1';
+                    footer.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        footerObserver.observe(footer);
+    }
+
+    // Yıl bilgisini otomatik ayarla
+    const yearEl = document.getElementById('year');
+    if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+    }
+
     // Sayaç animasyonu
     const counters = document.querySelectorAll('.counter');
     const statsSection = document.querySelector('.stats-section');
@@ -343,3 +385,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('🧀 Peynir üreticisi sayfası yüklendi!');
 });
+
